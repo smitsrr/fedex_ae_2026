@@ -3,7 +3,7 @@ fashionable_dwh:
     dev:
       type: bigquery
       method: service-account
-      keyfile: /Users/rsmits/Documents/resume_2026/jobs/fedex-lead-ae/fedex-ae-2026-a5d765b8bcbb.json
+      keyfile: [redacted].json
       project: fedex-ae-2026
       dataset: fashionable_dwh
       threads: 2

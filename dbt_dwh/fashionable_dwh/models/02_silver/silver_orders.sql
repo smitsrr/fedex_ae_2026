@@ -51,3 +51,6 @@ group by   order_id,
   promotion_ids,
   is_b2b,
   fulfilled_by
+
+  -- With more time I would create a gold layer that is the protected
+  -- user-interface layer with strict contracts on data types and columns. 

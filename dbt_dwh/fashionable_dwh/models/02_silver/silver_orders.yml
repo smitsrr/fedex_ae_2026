@@ -1,0 +1,84 @@
+version: 2
+
+models:
+  - name: silver_orders
+    description: "Granular table containing order-level details, shipping information, and financial metrics."
+    columns:
+      - name: order_id
+        description: "The unique identifier for each order."
+        tests:
+          - unique
+          - not_null
+
+      - name: order_date
+        description: "The timestamp when the order was placed."
+        tests:
+          - not_null
+
+      - name: order_status
+        description: "The current lifecycle state of the order (e.g., Pending, Shipped, Cancelled)."
+        tests:
+          - not_null:
+              config:
+                severity: warn
+        # Sure feels like all orders should have a status, so we might want to send an alert to a business user that there are so many NULLs
+
+      - name: fulfillment
+        description: "The status of the order's fulfillment process."
+
+      - name: sales_channel
+        description: "The platform or marketplace where the order originated (e.g., Website, Amazon, Shopify)."
+
+      - name: ship_service_level
+        description: "The shipping speed selected by the customer (e.g., Standard, Expedited, NextDay)."
+
+      - name: courier_status
+        description: "The tracking status returned by the shipping carrier."
+
+      - name: currency
+        description: "The 3-letter ISO currency code used for the transaction."
+        # tests:
+          # - not_null
+          # - accepted_values:
+          #     values: ['USD', 'CAD', 'EUR', 'GBP'] # Update this list based on your active markets
+
+      - name: order_amount
+        description: "The total monetary value of the order, calculated as the sum prices of all of the items in the order"
+        tests:
+          # - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+          # Note: If negative values are impossible, you could add a dbt_utils.expression_is_true test here.
+          # Try to figure out why these are null and if we could coalesce with 0
+
+      - name: ship_city
+        description: "The city where the order is being shipped."
+
+      - name: ship_state
+        description: "The state or province code for the shipping destination."
+
+      - name: ship_postal_code
+        description: "The postal or ZIP code for the shipping address."
+
+      - name: ship_country_code
+        description: "The 2-letter ISO country code for the destination country."
+        tests:
+          - not_null:
+              config:
+                severity: warn          
+
+      - name: promotion_ids
+        description: "An array or comma-separated string of promotion/discount IDs applied to the order."
+
+      - name: is_b2b
+        description: "Boolean flag indicating if the order is a Business-to-Business transaction."
+        tests:
+          - not_null
+
+      - name: fulfilled_by
+        description: "Identifies the entity responsible for fulfilling the order (e.g., Merchant, Third-Party Logstics)."
+
+      - name: items_in_order
+        description: "The total count of distinct items/SKUs included in this specific order."
+        tests:
+          - not_null

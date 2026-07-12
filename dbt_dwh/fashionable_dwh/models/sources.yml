@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: fashionable_raw # The internal dbt handle used in the source() macro
+    database: fedex-ae-2026 # Your BigQuery GCP Project ID
+    schema: fashionable_dwh # Your BigQuery Dataset ID
+    tables:
+          - name: fashionable_sales_report
+            description: "Raw data from a sales report"

@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: silver_items
+    description: "Intermediate table for dim_items to have descriptions for the items sold"
+    columns:
+      - name: asin
+        description: "The unique identifier for each item."
+        tests:
+          - unique
+          - not_null

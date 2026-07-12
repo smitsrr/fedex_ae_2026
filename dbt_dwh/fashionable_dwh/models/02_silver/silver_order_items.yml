@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: silver_order_items
+    description: "suppplemental fact table at the grain of one row per order per item."
+    columns:
+      - name: order_item_id
+        description: "The unique identifier for each order item."
+        tests:
+          - unique
+          - not_null

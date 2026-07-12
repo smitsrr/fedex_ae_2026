@@ -1,3 +1,8 @@
+
+-- By default all models are materialized as views and I make no performance considerations
+-- In a production environment I would assess daily performance and import patterns
+-- to establish incremental imports where possible to balance cost and time. 
+
 SELECT
     index as order_item_id,
    ASIN,
